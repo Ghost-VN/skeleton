@@ -1,4 +1,4 @@
-const config = require('config');
+const { protocol, host, port } = require('config').server;
 const bodyParser = require('koa-bodyparser');
 const inputValidator = require('node-input-validator');
 const Koa = require('koa');
@@ -11,10 +11,8 @@ app
     .use(routes)
     .use(inputValidator.koa());
 
-const { server } = config;
-
-const skeletonApp = app.listen(config.server.port, () => {
-    console.log(`${server.protocol}://${server.host}:${server.port}`);
+const skeletonApp = app.listen(port, () => {
+    console.log(`${protocol}://${host}:${port}`);
 });
 
 module.exports = { skeletonApp };

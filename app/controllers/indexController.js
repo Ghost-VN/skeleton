@@ -6,16 +6,14 @@ module.exports = {
             ctx.body = {
                 name: app.name,
                 version: app.version,
-                description: app.description
+                description: app.description,
             };
         } catch (error) {
             ctx.status = 500;
             ctx.body = {
-                status: `ERROR: ${error.toString()}`
+                status: `ERROR: indexController/startPage:4: ${error.toString()}`,
             };
         }
         return next();
-    }
-}
-
-
+    },
+};

@@ -19,6 +19,7 @@
     "koa": "^2.11.0",
     "koa-bodyparser": "^4.3.0",
     "koa-router": "^8.0.8",
+    "memcached": "^2.2.2",
     "mysql-query-promise": "^1.0.1",
     "node-input-validator": "^4.2.0"
   },

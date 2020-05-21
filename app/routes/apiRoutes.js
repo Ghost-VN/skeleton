@@ -1,4 +1,4 @@
 module.exports = function (router) {
     router
-        .get(`/get-sys-mysql`, require('../controllers/testController').getSysInfoMysql);
+        .get('/get-sys-mysql/', require('../controllers/testController').getSysInfoMysql);
 };
