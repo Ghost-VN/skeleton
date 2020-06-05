@@ -20,7 +20,7 @@ module.exports = {
                 user: 'root',
                 password: 'gtnhjdbx',
                 port: '3306',
-                database: 'sys',
+                database: 'CRUDdb',
                 connectionLimit: 1,
             },
 
