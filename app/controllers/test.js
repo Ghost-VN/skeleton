@@ -9,7 +9,7 @@ module.exports = {
         try {
             result = await testManager.getSys();            
             ctx.body = {
-                status: 'OK',
+                status: result
             };
         } catch (error) {
             console.error(`ERROR: ${error.toString()}`);

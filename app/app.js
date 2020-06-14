@@ -1,20 +1,20 @@
-const config = require('config');
-const bodyParser = require('koa-bodyparser');
-const inputValidator = require('node-input-validator');
-const Koa = require('koa');
-const routes = require('./routes/index');
+require('dotenv').config();
 
+const { protocol, host, port } = require('config').server;
+const middlewares              = require('./middlewares');
+const routes                   = require('./routes/index');
+const mongoose                 = require('./configs/mongoose');
+
+const Koa = require('koa');
 const app = new Koa();
 
-app
-    .use(bodyParser())
-    .use(routes)
-    .use(inputValidator.koa());
+middlewares.forEach(middleW => app.use(middleW));
+routes.forEach(route => app.use(route));
 
-const { server } = config;
+mongoose();
 
-const skeletonApp = app.listen(config.server.port, () => {
-    console.log(`${server.protocol}://${server.host}:${server.port}`);
+const skeletonApp = app.listen(port, () => {
+    console.log(`${protocol}://${host}:${port}`);
 });
 
 module.exports = { skeletonApp };

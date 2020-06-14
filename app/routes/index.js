@@ -1,8 +1,7 @@
-const router      = require('koa-router')();
-const indexRoutes = require('./indexRoutes');
-const apiRoutes   = require('./apiRoutes');
+const { baseRoutes, authRoutes, postRoutes } = require('../routes/APIs');
 
-indexRoutes(router);
-apiRoutes(router);
-
-module.exports = router.routes();
+module.exports = [
+    baseRoutes(), 
+    authRoutes(), 
+    postRoutes()
+];
