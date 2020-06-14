@@ -17,11 +17,11 @@ authRoutes
 
 postRoutes
       .prefix('/api/posts')
-      .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/posts').save) // save post
-      .get('/', require('../controllers/posts').get)  // get posts by user/users id/Ids
-      .get('/:id')
-      .put('/', passport.authenticate('jwt', { session: false }))
-      .delete('/:_id', passport.authenticate('jwt', { session: false }));
+      .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/posts').save)          // save post
+      .get('/', require('../controllers/posts').getByUserId)                                                      // get posts by user/users id/Ids
+      .get('/:id', require('../controllers/posts').getByPostId)                                                   // get post by postId
+      .put('/', passport.authenticate('jwt', { session: false }), require('../controllers/posts').update)         // update post
+      .delete('/:_id', passport.authenticate('jwt', { session: false }), require('../controllers/posts').delete); // delete post
 
 
 module.exports = {
