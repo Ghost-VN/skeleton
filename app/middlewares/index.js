@@ -1,11 +1,13 @@
 const bodyParser     = require('./body-parser');
 const errors         = require('./errors');
-const inputValidator = require('./inputValidator');
+const mongooseErrors = require('./mongooseError');
 const passportInit   = require('./passport-init');
+const inputValidator = require('./inputValidator');
 
 module.exports = [
     bodyParser,
-    errors,
-    inputValidator,   
-    passportInit
+    errors,    
+    mongooseErrors,
+    passportInit,
+    inputValidator
 ];

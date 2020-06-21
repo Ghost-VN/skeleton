@@ -6,7 +6,8 @@ const baseRoutes    = new Router(),
       userRoutes    = new Router(),     
       postRoutes    = new Router(),
       likesRoutes   = new Router(),
-      commentRoutes = new Router();
+      commentRoutes = new Router(),
+      subsRoutes    = new Router();
 
 
 baseRoutes
@@ -40,7 +41,13 @@ commentRoutes
       .prefix('/api/posts/:postId/comments')
       .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/comments').create)              // create comment
       .delete('/:commentId', passport.authenticate('jwt', { session: false }), require('../controllers/comments').delete)  // delete comment
-    
+
+subsRoutes
+      .prefix('/api/subs')
+      .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/subs').create)         // create sub
+      .get('/', passport.authenticate('jwt', { session: false }), require('../controllers/subs').get)             // get sub
+      .delete('/:_id', passport.authenticate('jwt', { session: false }), require('../controllers/subs').delete)   // delete sub
+      
       
 module.exports = {
       baseRoutes() {
@@ -60,5 +67,8 @@ module.exports = {
       },
       userRoutes() {
             return userRoutes.routes()
+      },
+      subsRoutes() {
+            return subsRoutes.routes()
       }
 };

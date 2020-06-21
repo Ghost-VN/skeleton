@@ -21,7 +21,7 @@ module.exports = {
             connectionLimit: 1
         },
         mongo: {
-            mongoURI: process.env.MONGO_URI
+            mongoURI: `${process.env.MONGO_URI}/${process.env.MONGO_DB}`
         }
     },
     middlewares: {

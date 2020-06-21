@@ -1,10 +1,17 @@
-const { baseRoutes, authRoutes, postRoutes, likesRoutes, commentRoutes, userRoutes } = require('../routes/APIs');
+const { baseRoutes, 
+        authRoutes, 
+        userRoutes,
+        postRoutes, 
+        likesRoutes, 
+        commentRoutes, 
+        subsRoutes } = require('../routes/APIs');
 
 module.exports = [
     baseRoutes(), 
-    userRoutes(),
     authRoutes(), 
+    userRoutes(),
     postRoutes(),
     likesRoutes(),
-    commentRoutes()
+    commentRoutes(),
+    subsRoutes()
 ];
