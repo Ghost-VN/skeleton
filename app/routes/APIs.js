@@ -1,10 +1,13 @@
 const Router = require('koa-router');
 const passport = require('koa-passport');
 
-const authRoutes  = new Router(),
-      baseRoutes  = new Router(),
-      postRoutes  = new Router(),
-      likesRoutes = new Router();
+const baseRoutes    = new Router(),
+      authRoutes    = new Router(),
+      userRoutes    = new Router(),     
+      postRoutes    = new Router(),
+      likesRoutes   = new Router(),
+      commentRoutes = new Router();
+
 
 baseRoutes
       .prefix('/api')
@@ -15,6 +18,10 @@ authRoutes
       .prefix('/api/auth')
       .post('/register', require('../controllers/auth').register) // user registration
       .post('/login', require('../controllers/auth').login);      // user login
+
+userRoutes
+      .prefix('/api/users')
+      .get('/:_id', passport.authenticate('jwt', { session: false }), require('../controllers/users').getUserById)
 
 postRoutes
       .prefix('/api/posts')
@@ -29,6 +36,12 @@ likesRoutes
       .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/likes').like)             // like post
       .delete('/:likeId', passport.authenticate('jwt', { session: false }), require('../controllers/likes').dislike) // dislike post
 
+commentRoutes
+      .prefix('/api/posts/:postId/comments')
+      .post('/', passport.authenticate('jwt', { session: false }), require('../controllers/comments').create)              // create comment
+      .delete('/:commentId', passport.authenticate('jwt', { session: false }), require('../controllers/comments').delete)  // delete comment
+    
+      
 module.exports = {
       baseRoutes() {
             return baseRoutes.routes();
@@ -41,5 +54,11 @@ module.exports = {
       },
       likesRoutes() {
             return likesRoutes.routes();
+      },
+      commentRoutes() {
+            return commentRoutes.routes()
+      },
+      userRoutes() {
+            return userRoutes.routes()
       }
 };

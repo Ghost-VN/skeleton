@@ -14,9 +14,9 @@ const postSchema = new Schema({
     likes: [
         {
             user: {
-               type: Schema.Types.ObjectId,
-               ref: 'users',
-               required: true 
+                type: Schema.Types.ObjectId,
+                ref: 'users',
+                required: true
             },
             createDate: {
                 type: Date,
@@ -24,10 +24,41 @@ const postSchema = new Schema({
             }
         }
     ],
+    comments: [
+        {
+          body: {
+              type: String,
+              required: true
+          },
+          user: {
+              type: Schema.Types.ObjectId,
+              ref: 'users',
+              required: true
+          },
+          createDate: {
+              type: Date,
+              default: Date.now
+          }
+        }
+    ],
     createDate: {
         type: Date,
         default: Date.now
     }
-})
+});
+
+const populationFields = 'user comments.user';
+
+postSchema.post('save', async (doc) => {
+   await doc.populate(populationFields).execPopulate()
+});
+
+function populateFields() {
+   this.populate(populationFields)
+};
+
+postSchema.pre('find', populateFields)
+postSchema.pre('findOne', populateFields)
+postSchema.pre('findOneAndUpdate', populateFields)
 
 module.exports = mongoose.model('posts', postSchema)
